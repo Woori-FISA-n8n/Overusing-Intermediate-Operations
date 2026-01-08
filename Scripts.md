@@ -110,6 +110,11 @@ Why? -> 노이즈
 ## 3.1 JMH가 필요하다 
 
 사실 우리가 한 실험은 실제 "함수의 기능"만 포함된 것이 아니다.
+```JAVA
+beforeTime = System.nanoTime();
+m1();
+afterTime = System.nanoTime();
+```
 
 JMH (Java Microbenchmark Harness) 를 사용해서 벤치마킹을 해야한다!
 
@@ -182,8 +187,19 @@ static List<String> names = Arrays.asList("James", "Mary", "Robert", ...);
 
 ![00_5](./Images/00_6.png)
 
+* 하나의 파일안에 m1과 m2의 벤치마킹을 순차적으로 진행시키면 m2의 성능측정의 결과가 m1의 영향을 받는다.
+
+* 사용할 대량의 데이터를 main함수 내부의 변수보다 static으로 사용하는것이 캐시·분기·JIT에 유리하고 GC의 영향을 덜 받으며 실험의 안정성에 유리하다.
+  -> 실제로 평균값이 작아지고 max값도 작아졌음.
+
 ## 7. 추가로 생각해 보아야 할것
 
-* 만약 StreamAPI를 병렬 stream으로 생성해서 데이터를 처리하도록 한다면?
+* StreamAPI를 병렬 stream으로 생성해서 데이터를 처리하도록 한다면?
 
 * JMH를 사용해서 노이즈를 최대한 제거한 후 함수"기능"만의 시간은?
+
+* 로그 스케일로 데이터를 더 늘려가며 그래프 같은 시각자료 필요
+
+
+
+
