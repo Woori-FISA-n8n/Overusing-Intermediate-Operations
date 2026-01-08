@@ -3,7 +3,7 @@
 > 4. Overusing Intermediate Operations:Mistake: Chaining too many intermediate operations (like filter() and map()) can introduce performance overhead.
 
 ## 1. 개요: 중간 연산 과다 사용 (Overusing Intermediate Operations)
-스트림 API 사용 시 `filter()`나 `map()`과 같은 중간 연산을 여러개 사용 하는 것은 코드의 가독성을 높일 수 있으나, 시스템의 성능에 영향을 미칠 가능성이 있다.
+스트림 API 사용 시 `filter()`나 `map()`과 같은 중간 스트림을 여러개 생성 하는 것은 코드의 가독성을 높일 수 있으나, 시스템의 성능에 영향을 미칠 가능성이 있다.
 
 ### 로직 구현 방식 비교
     
@@ -37,9 +37,9 @@
 
 ### 2.1 실험 환경
 
-* 반복 횟수: 10, 100, 1000, 10000회 실행 (나노초 단위 측정)
+* 데이터 개수: 10, 100, 1000, 10000개 (나노초 단위 측정)
 
-* 워밍업: 20000회 (JIT 컴파일러 활성화 유도)
+* 워밍업: 20000회 (JIT 컴파일러 최적화화 유도)
 
 ```Java
 public class StreamAPILab {
@@ -87,7 +87,7 @@ public class StreamAPILab {
 | 1,000건 | 804 | 778 | 3.3% |
 | 10,000건 | 6722 | 6716 | 0.1% |
 
-두 함수 모두 최대 시간과 최소 시간이 100배 이상 차이남
+두 함수 모두 최대 시간과 최소 시간이 1000배 이상 차이남
 
 ex) 데이터가 1000건일 경우 m2에서 max 622481ns min 403ns 
 
@@ -199,6 +199,7 @@ static List<String> names = Arrays.asList("James", "Mary", "Robert", ...);
 * JMH를 사용해서 노이즈를 최대한 제거한 후 함수"기능"만의 시간은?
 
 * 로그 스케일로 데이터를 더 늘려가며 그래프 같은 시각자료 필요
+
 
 
 
